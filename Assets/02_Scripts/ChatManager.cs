@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,5 +18,11 @@ public class ChatManager : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI _messageText;
 
-
+    private TcpChatClient _client;
+    
+    private async Task Awake()
+    {
+        _client = new TcpChatClient(_serverIp, _serverPort);
+        await _client.ConnectServerAsync();
+    }
 }

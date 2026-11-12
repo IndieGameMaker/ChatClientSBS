@@ -55,6 +55,7 @@ public class TcpChatClient : IDisposable
             
             // TODO: 서버 연결 이벤트 발행
             // TODO: 수신루프 시작
+            return true;
         }
         catch (Exception e)
         {
@@ -74,6 +75,12 @@ public class TcpChatClient : IDisposable
     
     public void Dispose()
     {
-        
+        if (_isDisposed) return;
+        _isDisposed = true;
+        _isConnected = false;
+        _reader?.Dispose();
+        _writer?.Dispose();
+        _stream?.Dispose();
+        _tcpClient?.Dispose();
     }
 }
